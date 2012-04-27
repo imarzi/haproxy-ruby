@@ -14,7 +14,9 @@ module HAProxy
       returning({}) do |info|
         send_cmd "show info" do |line|
           key, value = line.split(': ')
-          info[key.downcase.gsub('-', '_').to_sym] = value
+          if (value != [] and value != nil)
+            info[key.downcase.gsub('-', '_').to_sym] = value
+          end
         end
       end
     end
